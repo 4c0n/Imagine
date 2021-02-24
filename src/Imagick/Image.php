@@ -830,6 +830,14 @@ final class Image extends AbstractImage
                     $image->setOption('webp:lossless', $options['webp_lossless']);
                 }
                 break;
+            case 'tiff':
+                // tiff_compression_type should be one of the \Imagick::COMPRESSION_ constants
+                // tiff_compression_level integer between 1 and 100
+                if (isset($options['tiff_compression_type']) && isset($options['tiff_compression_level'])) {
+                    $image->setCompression($options['tiff_compression_type']);
+                    $image->setCompressionQuality($options['tiff_compression_level']);
+                }
+                break;
         }
         if (isset($options['resolution-units']) && isset($options['resolution-x']) && isset($options['resolution-y'])) {
             if (empty($options['resampling-filter'])) {
