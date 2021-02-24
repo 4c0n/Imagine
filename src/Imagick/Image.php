@@ -831,11 +831,16 @@ final class Image extends AbstractImage
                 }
                 break;
             case 'tiff':
+                if (!isset($options['tiff_quality'])) {
+                    if (isset($options['quality'])) {
+                        $options['tiff_quality'] = $options['quality'];
+                    }
+                }
                 // tiff_compression_type should be one of the \Imagick::COMPRESSION_ constants
-                // tiff_compression_level integer between 1 and 100
-                if (isset($options['tiff_compression_type']) && isset($options['tiff_compression_level'])) {
+                // tiff_quality integer between 1 and 100
+                if (isset($options['tiff_compression_type']) && isset($options['tiff_quality'])) {
                     $image->setCompression($options['tiff_compression_type']);
-                    $image->setCompressionQuality($options['tiff_compression_level']);
+                    $image->setCompressionQuality($options['tiff_quality']);
                 }
                 break;
         }
